@@ -2,51 +2,46 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Logements</title>
+    <title>Clients</title>
     <link rel="stylesheet" href="/css/style.css">
     
 </head>
 <body class="Client">
     <%- include('navbar'); %>
 
-    <h1>Ajouter Client</h1>
-    <!-- Formulaire d'ajout/modification d'un membre -->
-    <form id="membreForm" action="/api/clients" method="post">
+        <h2>Ajouter un Client</h2>
+        <form id="membreForm" action="/api/clients" method="post">
 
         <!-- Champ : Nom -->
         <div class="row">
             <label>Nom :</label>
-            <input type="text" id="nom" name="nom">
+            <input type="text" id="nom" name="nom" required>
         </div>
 
         <!-- Champ : Prénom -->
         <div class="row">
             <label>Prénom :</label>
-            <input type="text" id="prenom" name="prenom">
+            <input type="text" id="prenom" name="prenom" required>
         </div>
 
         <!-- Champ : Email -->
         <div class="row">
             <label>Email :</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" required>
         </div>
 
         <!-- Champ : Numéro de téléphone -->
         <div class="row">
             <label>Téléphone :</label>
-            <input type="text" id="telephone" name="telephone">
+            <input type="text" id="telephone" name="telephone" required>
         </div>
 
-                    
         <!-- Pied du modal : bouton de soumission du formulaire -->
-        <div class="modal-footer">
+        <div>
             <button type="submit">Enregistrer</button>
         </div>
 
-
-    </form>
+        </form>
+    </div>
 
 </body>
-
-
-

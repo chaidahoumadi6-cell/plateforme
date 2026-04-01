@@ -12,3 +12,5 @@ const serveur = http.createServer(app);
 serveur.listen(numeroPort, () =>{
     console.log("Le serveur ", numeroPort)
 })
+
+
