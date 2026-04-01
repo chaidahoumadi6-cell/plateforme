@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <%- include('navbar'); %>
+
+    <h2>Réserver un logement</h2>
+
+    <form method="POST" action="/reservations" class="form-reservation">
+        <label for="logement">Sélectionner un logement:</label>
+        <select name="logement" id="logement" required>
+            <option value=""> Choisir un logement </option>
+            <option value="1">Appartement Centre-ville (55 €/nuit)</option>
+            <option value="2">Maison familiale (80 €/nuit)</option>
+            <option value="3">Studio étudiant (40 €/nuit)</option>
+        </select>
+
+        <label for="dateDebut">Date d'arrivée:</label>
+        <input type="date" name="dateDebut" id="dateDebut" required>
+
+        <label for="dateFin">Date de départ:</label>
+        <input type="date" name="dateFin" id="dateFin" required>
+
+        <label for="nom">Nom complet:</label>
+        <input type="text" name="nom" id="nom" placeholder="Votre nom" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Votre email" required>
+
+        <label for="telephone">Téléphone:</label>
+        <input type="tel" name="telephone" id="telephone" placeholder="Votre téléphone" required>
+
+        <button type="submit">✅ Confirmer la réservation</button>
+    </form>
+</body>
+</html>

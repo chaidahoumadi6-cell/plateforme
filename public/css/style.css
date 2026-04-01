@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f2f2f2;
+}
+
+/*.card {
+    background: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}*/
+
+button {
+    background: #3498db;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*button:hover {
+    background: #217dbb;
+}*/
+
+input {
+    display: block;
+    width: 300px;
+    margin: 8px 0;
+    padding: 8px;
+}
+
+/*.bodyClient{
+    background-image: url(/public/images/poprietaire.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}*/
+.table-clients{
+    width: 30%;
+    border:solid;
+    margin-bottom: 40px;
+
+}
+
+/*th{
+    border: solid;
+}*/
+
+
+/*.table-clients {
+    width: 30%;
+    margin-bottom: 20px;
+}*/
+
+.table-clients th, .table-plats td {
+    border: 1px solid #444;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-clients th {
+    background: #f6c763;
+    color: rgb(240, 243, 245);
+}
+
+/*td{
+    border: solid ;
+}*/
+
+

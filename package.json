@@ -1,0 +1,29 @@
+{
+  "name": "plateforme",
+  "version": "1.0.0",
+  "description": "location",
+  "keywords": [
+    "server"
+  ],
+  "homepage": "https://github.com/chaidahoumadi6-cell/plateforme#readme",
+  "bugs": {
+    "url": "https://github.com/chaidahoumadi6-cell/plateforme/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaidahoumadi6-cell/plateforme.git"
+  },
+  "license": "ISC",
+  "author": "chaida",
+  "type": "commonjs",
+  "main": "serveur.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "express-myconnection": "^1.0.4",
+    "mysql2": "^3.20.0"
+  }
+}
