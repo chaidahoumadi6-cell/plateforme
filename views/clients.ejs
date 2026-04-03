@@ -9,8 +9,43 @@
 <body class="Client">
     <%- include('navbar'); %>
 
+    <div class="gestion">
+        <h1>Gestion Clients</h1>
+        
+        <h2>Liste des Clients</h2>
+        <table class="table-clients">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (clients && clients.length > 0) { %>
+                    <% clients.forEach(client => { %>
+                        <tr>
+                            <td><%= client.nom %></td>
+                            <td><%= client.prenom %></td>
+                            <td><%= client.email %></td>
+                            <td><%= client.telephone %></td>
+                            <td>
+                                <button onclick="supprimerClient(<%= client.id %>)">Supprimer</button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" style="text-align:center; color:#999;">Aucun client enregistré</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+
         <h2>Ajouter un Client</h2>
-        <form id="membreForm" action="/api/clients" method="post">
+        <form id="membreForm" class="form-reservation">
 
         <!-- Champ : Nom -->
         <div class="row">
@@ -37,11 +72,63 @@
         </div>
 
         <!-- Pied du modal : bouton de soumission du formulaire -->
-        <div>
+        <div class="modal-footer">
             <button type="submit">Enregistrer</button>
         </div>
 
         </form>
     </div>
+
+    <script>
+        // Gérer la soumission du formulaire d'ajout de client
+        document.getElementById("membreForm").onsubmit = (e) => {
+            // Empêche le rechargement de la page
+            e.preventDefault();
+
+            // Récupère les valeurs saisies dans le formulaire
+            const formData = {
+                nom: document.getElementById("nom").value,
+                prenom: document.getElementById("prenom").value,
+                email: document.getElementById("email").value,
+                telephone: document.getElementById("telephone").value
+            };
+
+            // Envoie les données à l'API via une requête POST
+            fetch('/api/clients', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(res => {
+                if (res.ok) {
+                    alert("Client enregistré avec succès !");
+                    // Redirige vers la page des réservations
+                    window.location.href = '/api/reservations';
+                } else {
+                    alert("Erreur lors de l'enregistrement du client");
+                }
+            })
+            .catch(err => {
+                console.log("Erreur :", err);
+                alert("Erreur réseau");
+            });
+        };
+
+        // Fonction pour supprimer un client
+        function supprimerClient(id) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer ce client ?")) {
+                fetch(`/api/clients/${id}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    alert("Client supprimé !");
+                    location.reload();
+                })
+                .catch(err => {
+                    console.log("Erreur :", err);
+                    alert("Erreur suppression");
+                });
+            }
+        }
+    </script>
 
 </body>

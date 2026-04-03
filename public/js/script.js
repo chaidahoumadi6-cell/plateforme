@@ -25,18 +25,53 @@ function modifier(id, nom, prenom, email, telephone) {
 
   const form = document.getElementById("membreForm");
 
-  // Gère la soumission du formulaire de modification
+
+    
+    // Gère la soumission du formulaire de modification
     form.onsubmit = (e) => {
         // Empêche le rechargement de la page
         e.preventDefault();
 
         // Récupère les valeurs saisies dans le formulaire
-        const data = {
-            nom: document.getElementById("nom").value,
-            prenom: document.getElementById("prenom").value,
-            email: document.getElementById("email").value,
-            telephone: document.getElementById("telephone").value,
-           
-        };
-    };
-}
+        const data = { ... };
+
+        fetch(`/api/clients/${id}`, {  
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        })
+        
+    };  
+
+
+
+
+
+
+    // Envoie les données modifiées à l'API via une requête PUT
+    fetch(`/api/clients/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if (res.ok) {
+        // Ferme le modal
+        modal.style.display = "none";
+        // Affiche un message de succès
+        showToast("Modification réussie !");
+        // Recharge la page après 1,2s
+        setTimeout(() => location.reload(), 1200);
+      } else {
+         // Affiche une erreur serveur
+        showToast("Erreur serveur", "error");
+      }
+    })
+    // Affiche une erreur réseau
+    .catch(() => showToast("Erreur réseau", "error"));
+};
+
+
+
+
+

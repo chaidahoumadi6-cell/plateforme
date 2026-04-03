@@ -10,33 +10,127 @@
 
     <%- include('navbar'); %>
 
-    <h2>Réserver un logement</h2>
+    <div class="liste">
+        <h1>Réservations</h1>
+        
+        <h2>Liste des Réservations</h2>
+        <table class="table-clients">
+            <thead>
+                <tr>
+                    <th>Logement</th>
+                    <th>Date Arrivée</th>
+                    <th>Date Départ</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (reservations && reservations.length > 0) { %>
+                    <% reservations.forEach(reservation => { %>
+                        <tr>
+                            <td><%= reservation.logement %></td>
+                            <td><%= new Date(reservation.date_debut).toLocaleDateString('fr-FR') %></td>
+                            <td><%= new Date(reservation.date_fin).toLocaleDateString('fr-FR') %></td>
+                            <td><%= reservation.nom %></td>
+                            <td><%= reservation.email %></td>
+                            <td><%= reservation.telephone %></td>
+                            <td>
+                                <button onclick="supprimerReservation(<%= reservation.id %>)">Supprimer</button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="7" style="text-align:center; color:#999;">Aucune réservation enregistrée</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
 
-    <form method="POST" action="/reservations" class="form-reservation">
-        <label for="logement">Sélectionner un logement:</label>
-        <select name="logement" id="logement" required>
-            <option value=""> Choisir un logement </option>
-            <option value="1">Appartement Centre-ville (55 €/nuit)</option>
-            <option value="2">Maison familiale (80 €/nuit)</option>
-            <option value="3">Studio étudiant (40 €/nuit)</option>
-        </select>
+        <h2>Ajouter une Réservation</h2>
 
-        <label for="dateDebut">Date d'arrivée:</label>
-        <input type="date" name="dateDebut" id="dateDebut" required>
+        <form id="formReservation" class="form-reservation">
+            <label for="logement">Sélectionner un logement:</label>
+            <select name="logement" id="logement" required>
+                <option value="">Choisir un logement</option>
+                <option value="1">Appartement Centre-ville (55 €/nuit)</option>
+                <option value="2">Maison familiale (80 €/nuit)</option>
+                <option value="3">Studio étudiant (40 €/nuit)</option>
+            </select>
 
-        <label for="dateFin">Date de départ:</label>
-        <input type="date" name="dateFin" id="dateFin" required>
+            <label for="dateDebut">Date d'arrivée:</label>
+            <input type="date" name="dateDebut" id="dateDebut" required>
 
-        <label for="nom">Nom complet:</label>
-        <input type="text" name="nom" id="nom" placeholder="Votre nom" required>
+            <label for="dateFin">Date de départ:</label>
+            <input type="date" name="dateFin" id="dateFin" required>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" placeholder="Votre email" required>
+            <label for="nom">Nom complet:</label>
+            <input type="text" name="nom" id="nom" placeholder="Votre nom" required>
 
-        <label for="telephone">Téléphone:</label>
-        <input type="tel" name="telephone" id="telephone" placeholder="Votre téléphone" required>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" placeholder="Votre email" required>
 
-        <button type="submit">✅ Confirmer la réservation</button>
-    </form>
+            <label for="telephone">Téléphone:</label>
+            <input type="tel" name="telephone" id="telephone" placeholder="Votre téléphone" required>
+
+            <button type="submit">Confirmer la réservation</button>
+        </form>
+    </div>
+
+    <script>
+        // Gérer la soumission du formulaire de réservation
+        document.getElementById("formReservation").onsubmit = (e) => {
+            // Empêche le rechargement de la page
+            e.preventDefault();
+
+            // Récupère les valeurs saisies dans le formulaire
+            const formData = {
+                logement: document.getElementById("logement").value,
+                dateDebut: document.getElementById("dateDebut").value,
+                dateFin: document.getElementById("dateFin").value,
+                nom: document.getElementById("nom").value,
+                email: document.getElementById("email").value,
+                telephone: document.getElementById("telephone").value
+            };
+
+            // Envoie les données à l'API via une requête POST
+            fetch('/api/reservations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(res => {
+                if (res.ok) {
+                    alert("Réservation confirmée !");
+                    // Recharge la page pour afficher la nouvelle réservation
+                    location.reload();
+                } else {
+                    alert("Erreur lors de la réservation");
+                }
+            })
+            .catch(err => {
+                console.log("Erreur :", err);
+                alert("Erreur réseau");
+            });
+        };
+
+        // Fonction pour supprimer une réservation
+        function supprimerReservation(id) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?")) {
+                fetch(`/api/reservations/${id}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    alert("Réservation supprimée !");
+                    location.reload();
+                })
+                .catch(err => {
+                    console.log("Erreur :", err);
+                    alert("Erreur suppression");
+                });
+            }
+        }
+    </script>
 </body>
 </html>
