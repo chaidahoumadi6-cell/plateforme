@@ -7,15 +7,19 @@
     
 </head>
 <body class="Client">
+    <!-- Inclure le fichier navbar.ejs pour avoir la barre de navigation-->
     <%- include('navbar'); %>
 
     <div class="gestion">
+        <!-- Titre principal de la page -->
         <h1>Gestion Clients</h1>
-        
+
+        <!-- Liste des clients enregistrés -->
         <h2>Liste des Clients</h2>
         <table class="table-clients">
             <thead>
                 <tr>
+                    <!-- En-têtes des colonnes du tableau -->
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
@@ -27,11 +31,13 @@
                 <% if (clients && clients.length > 0) { %>
                     <% clients.forEach(client => { %>
                         <tr>
+                            <!-- Affichage des informations du client -->
                             <td><%= client.nom %></td>
                             <td><%= client.prenom %></td>
                             <td><%= client.email %></td>
                             <td><%= client.telephone %></td>
                             <td>
+                                <!-- Bouton permettant de supprimer un client -->
                                 <button onclick="supprimerClient(<%= client.id %>)">Supprimer</button>
                             </td>
                         </tr>
@@ -43,8 +49,9 @@
                 <% } %>
             </tbody>
         </table>
-
+         <!-- Formulaire pour ajouter un nouveau client -->
         <h2>Ajouter un Client</h2>
+        <!-- Formulaire d'ajout avec un ID utilisé pour la soumission en JS -->
         <form id="membreForm" class="form-reservation">
 
         <!-- Champ : Nom -->

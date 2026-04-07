@@ -7,40 +7,53 @@
     
 </head>
 <body class="location">
-
+    <!-- Inclure le fichier navbar.ejs pour avoir la barre de navigation-->
     <%- include('navbar'); %>
 
-        <div class="container">
+    <!-- Conteneur principal de la page -->
+    <div class="container">
+
+        <!-- Titre de la section -->    
         <h1>Maisons ou Appartements à louer</h1>
-        <table class="table-clients">
+
+            <!-- Tableau des logements disponibles -->
+            <table class="table-clients">
+
+                <!-- En-tête du tableau -->
                 <thead>
                     <tr>
+                         <!-- Colonne : nom du logement -->
                         <th>Appartement </th>
+                        <!-- Colonne : prix -->
                         <th>prix</th>
+                        <!-- Colonne : unité de prix -->
                         <th>/</th>
                     </tr>
                 </thead>
+                <!-- Corps du tableau : liste des logements -->
                 <tbody>
                     <tr>
+                        <!-- Logement Appartement Centre-ville -->
                         <td>Appartement Centre-ville</td>
                         <td> 55 €</td>
                         <td>nuit</td>
                 
                     </tr>
                     <tr>
+                        <!-- Logement Maison familiale -->
                         <td>Maison familiale</td>
                         <td>80 €</td>
                         <td>nuit</td>
                     </tr>
                     <tr>
-                
+                        <!-- Logement Studio étudiant -->
                         <td>Studio étudiant</td>
                         <td> 40 €</td>
                         <td>nuit</td>
                     </tr>
                
                 </tbody>
-        </table>
+            </table>
 
 
     </div>

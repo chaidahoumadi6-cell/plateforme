@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="reservations">
-
+    <!-- Inclure le fichier navbar.ejs pour avoir la barre de navigation-->
     <%- include('navbar'); %>
 
+    <!-- Conteneur principal de la page des réservations -->
     <div class="liste">
+        <!-- Titre principal de la page -->
         <h1>Réservations</h1>
         
+        <!-- Section : affichage de la liste des réservations -->
         <h2>Liste des Réservations</h2>
-        <table class="table-clients">
+        <!-- Tableau des réservations -->
+        <table class="table-clients"> 
             <thead>
                 <tr>
+                    <!-- En-têtes des colonnes du tableau -->
                     <th>Logement</th>
                     <th>Date Arrivée</th>
                     <th>Date Départ</th>
@@ -26,32 +31,52 @@
                     <th>Actions</th>
                 </tr>
             </thead>
+            <!-- Corps du tableau -->
             <tbody>
+                <!-- Vérification : est-ce qu'il y a des réservations dans la base de données ? -->
                 <% if (reservations && reservations.length > 0) { %>
+
+                    <!-- On boucle sur chaque réservation pour afficher une ligne par réservation -->
                     <% reservations.forEach(reservation => { %>
                         <tr>
+                            <!-- Nom du logement -->
                             <td><%= reservation.logement %></td>
+
+                            <!-- Date d'arrivée formatée -->
                             <td><%= new Date(reservation.date_debut).toLocaleDateString('fr-FR') %></td>
+
+                            <!-- Date de départ formatée -->
                             <td><%= new Date(reservation.date_fin).toLocaleDateString('fr-FR') %></td>
+
+                            <!-- Nom du client -->
                             <td><%= reservation.nom %></td>
+
+                            <!-- Email du client -->
                             <td><%= reservation.email %></td>
+
+                            <!-- Téléphone du client -->
                             <td><%= reservation.telephone %></td>
                             <td>
+                                <!-- Bouton pour supprimer la réservation -->
                                 <button onclick="supprimerReservation(<%= reservation.id %>)">Supprimer</button>
                             </td>
                         </tr>
-                    <% }) %>
+                    <% }) %> <!-- Fin de la boucle forEach -->
                 <% } else { %>
                     <tr>
+                        <!-- Aucune réservation trouvée : message affiché à la place du tableau -->
                         <td colspan="7" style="text-align:center; color:#999;">Aucune réservation enregistrée</td>
                     </tr>
-                <% } %>
+                <% } %> <!-- Fin du else -->
             </tbody>
         </table>
-
+        <!-- formulaire pour ajouter une nouvelle réservation -->
         <h2>Ajouter une Réservation</h2>
 
+        <!-- Formulaire de réservation -->
         <form id="formReservation" class="form-reservation">
+
+            <!-- Sélection du logement -->
             <label for="logement">Sélectionner un logement:</label>
             <select name="logement" id="logement" required>
                 <option value="">Choisir un logement</option>
@@ -60,21 +85,27 @@
                 <option value="3">Studio étudiant (40 €/nuit)</option>
             </select>
 
+            <!-- Date d'arrivée -->
             <label for="dateDebut">Date d'arrivée:</label>
             <input type="date" name="dateDebut" id="dateDebut" required>
 
+            <!-- Date de départ -->
             <label for="dateFin">Date de départ:</label>
             <input type="date" name="dateFin" id="dateFin" required>
 
+             <!-- Nom complet du client -->
             <label for="nom">Nom complet:</label>
             <input type="text" name="nom" id="nom" placeholder="Votre nom" required>
 
+            <!-- Email du client -->
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" placeholder="Votre email" required>
 
+            <!-- Numéro de téléphone du client -->
             <label for="telephone">Téléphone:</label>
             <input type="tel" name="telephone" id="telephone" placeholder="Votre téléphone" required>
 
+            <!-- Bouton de soumission du formulaire -->
             <button type="submit">Confirmer la réservation</button>
         </form>
     </div>
